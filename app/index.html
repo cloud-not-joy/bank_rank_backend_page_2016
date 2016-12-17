@@ -1,0 +1,77 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>积分兑换系统</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <!--<link ref="stylesheet" href="styles/bootstrap-theme.min.css">-->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <!-- endbuild -->
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">您正在使用 <strong>过时，且危险的</strong> 浏览器。为了保障您的信息安全，请下载使用最新浏览器。下载地址<a href="http://rj.baidu.com/soft/detail/14744.html" target="_blank">http://rj.baidu.com/soft/detail/14744.html</a></p>
+    <![endif]-->
+    
+    <div id="app-start" class="container">
+      <router-view></router-view>
+    </div>
+
+    <script id="login-template" type="template" >
+      <div class="login-view">
+        <div class="login-form">
+          <h3 class="login-title">积分兑换系统</h3>
+          <div class="form-group">
+            <label for="inputEmail3" class="label-inline control-label">账号：</label>
+            <div class="input-inline">
+              <input type="text" v-model="userName " class="form-control" id="inputEmail3" placeholder="账号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="label-inline control-label">密码：</label>
+            <div class="input-inline">
+              <input type="password" v-model="passWord" class="form-control" id="inputPassword3" placeholder="密码">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="button-bottom">
+              <button type="submit" class="btn btn-primary" v-on:click="login()">登陆</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <script src="scripts/v/jquery.min.js"></script>
+    <script src="scripts/v/vue.min.js"></script>
+    <script src="scripts/v/vue.router.js"></script>
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <script src="scripts/v/bootstrap.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/login.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
