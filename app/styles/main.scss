@@ -179,4 +179,87 @@ $header-bg-color: #3498db;
       font-size: 16px;
     }
   }
+
+  .modal-dialog {
+    margin-top: 160px;
+
+    p {
+      text-align: center;
+    }
+
+    .title {
+      text-align: center;
+      line-height: 2;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .confirm-button {
+      position: relative;
+      width: 100%;
+      border-top: 1px solid #ececec;
+      line-height: 2.4;
+      button {
+        float: left;
+        width: 50%;
+        border: none;
+      }
+      .cancel {
+        background-color: #ffffff;
+        color: #cecece;
+        border-bottom-left-radius: 6px;
+        //border-right: 1px solid #ececec;
+      }
+      .sure {
+        background-color: #88c149;
+        color: #ffffff;
+        border-bottom-right-radius: 6px;
+      }
+    }
+    .alert-content {
+      margin: 20px 0;
+    }
+  }
+  .exchange-ok {
+    .confirm-button {
+      .sure {
+        width: 100%;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+  }
+
+  .exchange-history-list {
+    width: 300px;
+    margin: 0 auto;
+
+    max-height: 300px;
+    overflow-y: scroll;
+
+    li {
+      .rank {
+        float: right;
+      }
+      padding: 0 24px;
+      line-height: 1.67;
+    }
+
+    li:first-child {
+      font-size: 18px;
+      line-height: 2;
+    }
+  }
+  .exchange-history {
+    .modal-dialog {
+      width: 400px;
+    }
+    .confirm-button {
+      .sure {
+        width: 100%;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+  }
 }
