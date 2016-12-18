@@ -32,87 +32,105 @@
         <div class="exchange-goods">
           <div class="exchange-title">
             <p><span class="glyphicon glyphicon-gift"></span><span class="font">兑换商品</span></p>
-            <p><span class="glyphicon glyphicon-time"></span><span class="font">兑换记录</span></p>
+            <p v-on:click="showExchangeHistory()"><span class="glyphicon glyphicon-time"></span><span class="font">兑换记录</span></p>
           </div>
           <div class="exchange-list">
             <div class="goods-list">
               <ul>
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
+                <li class="goods-item" v-for="itemGoods of goodsArray">
+                  <img :src="itemGoods.imgUrl" />
+                  <p class="title">{{itemGoods.title}}</p>
                   <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
+                    <button class="btn btn-success" v-on:click="exchange()">兑换</button>
+                    <span class="goods-rank">兑换积分：{{itemGoods.rank}}</span>
                   </p>
                 </li>
 
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
 
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
-
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
-
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
-
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
-
-                <li class="goods-item">
-                  <img src='http://imgsize.ph.126.net/?imgurl=http://img2.ph.126.net/LeNCzSuoTg6mki8oRn1uzw==/6631750562422939247.jpg_188x188x1.jpg' />
-                  <p class="title">金龙鱼调和油带假发短发东方祭祀我为独享我为独享</p>
-                  <p class="clearfix">
-                    <button class="btn btn-success">兑换</button>
-                    <span class="goods-rank">兑换积分：400</span>
-                  </p>
-                </li>
               </ul>
             </div>
             <div class="clearfix goods-pagination">
               <nav>
                 <ul class="pagination">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
+                  <li><a href="javascript:;">&laquo;</a></li>
+                  <li><a href="javascript:;">1</a></li>
+                  <li><a href="javascript:;">2</a></li>
+                  <li><a href="javascript:;">3</a></li>
+                  <li><a href="javascript:;">4</a></li>
+                  <li><a href="javascript:;">5</a></li>
+                  <li><a href="javascript:;">&raquo;</a></li>
                 </ul>
               </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade exchange-modal exchange-confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="exchang-content">
+                <p class="title">
+                  确定兑换
+                </p>
+                <p class="alert-content">将扣除积分400</p>
+              </div>
+              <div class="confirm-button clearfix">
+                <button class="cancel" v-on:click="closeConfirm()">取消</button>
+                <button class="sure" v-on:click="sureConfirm()">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade exchange-modal exchange-ok" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="exchang-content">
+                <p class="title">
+                  兑换成功
+                </p>
+                <p class="alert-content">
+                  <span>你已成功兑换，兑换商品洗衣机</span><br>
+                  <span>兑换码：APP132</span>
+                </p>
+              </div>
+              <div class="confirm-button clearfix">
+                <button class="sure" v-on:click="closeConfirm()">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade exchange-modal exchange-history" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="exchang-content">
+                <p class="title">
+                  兑换记录
+                </p>
+                <div class="alert-content">
+                 <ul class="exchange-history-list">
+                  <li><span class="name">商品名称</span><span class="rank">消耗积分</span></li>
+                  <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                  <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
+                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                 </ul>
+                </div>
+              </div>
+              <div class="confirm-button clearfix">
+                <button class="sure" v-on:click="closeConfirm()">确定</button>
+              </div>
             </div>
           </div>
         </div>
