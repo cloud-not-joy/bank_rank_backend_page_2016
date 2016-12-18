@@ -34,9 +34,9 @@ var app = new Vue({
 
 
 // TODO 这里需要判断用户是否是登陆 如果是登陆了 就不显示登陆页面
-if (!appState.isLogin) {
+// if (!appState.isLogin) {
   router.push('/login');
-} else {
-  // debug 用
-  router.push('/staff');
-}
+// } else {
+//   // debug 用
+//   router.push('/staff');
+// }

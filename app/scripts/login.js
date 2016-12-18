@@ -20,16 +20,17 @@ var loginView = Vue.extend({
       if (!this.password) {
         return tipsAlert("密码不能为空");
       }
-      apiForLogin({
-        username: this.username,
-        password: this.password
-      }, function(data) {
-        // TODO 这里登陆角色跳转到不同到view
-        appState.isLogin = true;
-        // if (data.role === 1) {
-          appState.router.push('/staff');
-        // }
-      });
+      appState.router.push('/staff');
+      // apiForLogin({
+      //   username: this.username,
+      //   password: this.password
+      // }, function(data) {
+      //   // TODO 这里登陆角色跳转到不同到view
+      //   appState.isLogin = true;
+      //   // if (data.role === 1) {
+      //     appState.router.push('/staff');
+      //   // }
+      // });
     }
   }
 })
