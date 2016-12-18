@@ -1,0 +1,5 @@
+var defaultDatas = {
+  '/login': {
+    
+  }
+}

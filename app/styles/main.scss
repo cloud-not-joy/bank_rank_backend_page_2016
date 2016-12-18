@@ -12,8 +12,9 @@ $icon-font-path: '../fonts/';
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  //padding-top: 20px;
+  //padding-bottom: 20px;
+  min-width: 1277px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -37,6 +38,12 @@ body {
   }
 }
 
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -48,45 +55,128 @@ body {
   margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
+
+.container-fluid {
+  padding: 0;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-  p + h4 {
-    margin-top: 28px;
-  }
+
+.red-font {
+  color: #f1c3c3;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
+$header-bg-color: #3498db;
+
+.staff-view {
+  .staff-header {
+    background-color: $header-bg-color;
+    height: 60px;
+
+    .header-content {
+      width: 80%;
+      margin: 0 auto;
+      white-space:nowrap;
+      position: relative;
+
+      .login-off {
+        position: absolute;
+        right: 0px;
+        top: 25px;
+        display: inline-block;
+        margin: 0;
+        color: #cecece;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .title {
+        display: inline-block;
+        margin: 0;
+        line-height: 60px;
+        color: #e3e3e3;
+        font-size: 18px;
+      }
+
+      .staff-info-div {
+        display: inline-block;
+        vertical-align: middle;
+        color: #ffffff;
+        margin-left: 10px;
+
+        table {
+          text-align: left;
+          td {
+            padding-left: 16px;
+            line-height: 1.6;
+          }
+        }
+      }
+    }
   }
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  .exchange-goods {
+    width: 1028px;
+    margin: 32px auto;
+    position: relative;
+    font-size: 0px;
 
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
+    .exchange-title {
+      font-size: 16px;
+      p {
+        display: inline-block;
+        margin-right: 20px;
+        cursor: pointer;
 
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
+        .font {
+          display: inline-block;
+          margin-left: 2px;
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .goods-list {
+      margin: 24px 0;
+
+      .goods-item:nth-child(5n+0) {
+        margin-right: 0px;
+      }
+      .goods-item {
+        width: 180px;
+        display: inline-block;
+        margin-bottom: 32px;
+        margin-right: 32px;
+
+        img {
+          width: 180px;
+          height: 180px;
+        }
+
+        .title {
+          font-size: 16px;
+          font-weight: 300;
+          margin-top: 8px;
+          line-height: 1.2;
+          height: 36px;
+          overflow: hidden;
+          text-align: left;
+        }
+        button {
+          padding: 5px 20px;
+        }
+        .goods-rank {
+          font-size: 12px;
+          color: #d3c56d;
+          float: right;
+          padding-top: 10px;
+        }
+      }
+    }
+
+    .goods-pagination {
+      text-align: center;
+      font-size: 16px;
+    }
   }
 }

@@ -3,16 +3,33 @@ var loginView = Vue.extend({
   mounted: function() {
     $('body').addClass('login-bg');
   },
+  destoryed: function() {
+    $('body').removeClass('login-bg');
+  },
   data: function() {
     return {
-      userName: '',
-      passWord: ''
+      username: '',
+      password: ''
     }
   },
   methods: {
     login: function() {
-      console.log(this.userName);
-      console.log(this.passWord);
+      if (!this.username) {
+        return tipsAlert("用户名不能为空");
+      }
+      if (!this.password) {
+        return tipsAlert("密码不能为空");
+      }
+      apiForLogin({
+        username: this.username,
+        password: this.password
+      }, function(data) {
+        // TODO 这里登陆角色跳转到不同到view
+        appState.isLogin = true;
+        // if (data.role === 1) {
+          appState.router.push('/staff');
+        // }
+      });
     }
   }
 })
