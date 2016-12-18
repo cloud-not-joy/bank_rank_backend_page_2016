@@ -1,6 +1,73 @@
 <!doctype html><html class="no-js" lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width,initial-scale=1"><title>积分兑换系统</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- Place favicon.ico in the root directory --><link rel="stylesheet" href="styles/vendor.css"><link rel="stylesheet" href="styles/main.css"></head><body><!--[if lt IE 10]>
       <p class="browserupgrade">您正在使用 <strong>过时，且危险的</strong> 浏览器。为了保障您的信息安全，请下载使用最新浏览器。下载地址<a href="http://rj.baidu.com/soft/detail/14744.html" target="_blank">http://rj.baidu.com/soft/detail/14744.html</a></p>
-    <![endif]--><div id="app-start" class="container-fluid"><router-view></router-view></div><script id="staff-template" type="template"><div class="staff-view">
+    <![endif]--><div id="app-start" class="container-fluid"><router-view></router-view></div><script id="admin-system-template" type="template"><div class="admin-system-view"></div></script><script id="admin-goods-template" type="template"><div class="admin-goods-view"></div></script><script id="admin-staff-template" type="template"><div class="admin-staff-view">
+        <div class="admin-stall-list">
+          <p class="add-staff-p"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加员工</span></p>
+          <div class="staff-table">
+            <table class="table-bordered">
+              <thead>
+                <tr>
+                  <th>员工名称</th>
+                  <th>员工号</th>
+                  <th>部门名称</th>
+                  <th>角色</th>
+                  <th>月末任务定额</th>
+                  <th>上期存款</th>
+                  <th>本期存款</th>
+                  <th>累计积分</th>
+                  <th>已兑换积分</th>
+                  <th>剩余积分</th>
+                  <th>可兑换商品</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>蜘蛛侠</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="clearfix staff-pagination">
+            <nav>
+              <ul class="pagination">
+                <li><a href="javascript:;">&laquo;</a></li>
+                <li><a href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><a href="javascript:;">4</a></li>
+                <li><a href="javascript:;">5</a></li>
+                <li><a href="javascript:;">&raquo;</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div></script><script id="admin-template" type="template"><div class="admin-view staff-view">
+        <div class="staff-header">
+          <div class="header-content">
+            <h3 class="title">积分兑换系统</h3>
+            <div class="admin-info-div">
+              <p>欢迎你管理员 <span>美国队长</span></p>
+            </div>
+            <h4 class="login-off">退出登陆</h4>
+          </div>
+        </div>
+
+        <div class="admin-container clearfix">
+          <div class="admin-left-menu">
+            <ul>
+              <router-link to="/admin/staff"><li class="active">人员管理</li></router-link>
+
+              <router-link to="/admin/goods"><li>礼品管理</li></router-link>
+              <router-link to="/admin/system"><li>系统设置</li></router-link>
+            </ul>
+          </div>
+
+          <div class="admin-content-view">
+            <router-view></router-view>
+          </div>
+        </div>
+      </div></script><script id="staff-template" type="template"><div class="staff-view">
         <div class="staff-header">
           <div class="header-content">
             <h3 class="title">积分兑换系统</h3>
