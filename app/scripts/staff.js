@@ -28,6 +28,9 @@ var staffView = Vue.extend({
     },
     showExchangeHistory: function() {
       $(".exchange-history").modal('show');
+    },
+    logoff: function() {
+      appState.router.push('/login');
     }
   }
 })

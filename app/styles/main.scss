@@ -17,6 +17,10 @@ body {
   min-width: 1277px;
 }
 
+.hide {
+  display: none;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -42,6 +46,11 @@ ul, li {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+a:hover, a:focus {
+  color: #157ab5;
+  text-decoration: none;
 }
 
 /* Custom page footer */
@@ -313,6 +322,10 @@ $header-bg-color: #f5f5f5;
 .admin-staff-view {
   .add-staff-p {
     margin: 14px;
+    cursor: pointer;
+  }
+  .add-staff-p:hover {
+    color: #5e2400;
   }
   .staff-table {
     padding: 0 14px 14px 14px;
@@ -327,8 +340,48 @@ $header-bg-color: #f5f5f5;
       td {
         text-align: center;
         vertical-align: middle;
-        line-height: 1.8;
+        line-height: 1.6;
+        padding: 10px 0;
       }
+    }
+    .operation-font {
+      cursor: pointer;
+    }
+    .edit {
+      color: #2d6987;
+      margin-right: 20px;
+    }
+    .del {
+      color: #cecece;
+    }
+  }
+
+  .staff-add-view {
+    margin: 32px auto;
+
+    .title {
+      text-align: center;
+    }
+  }
+  .staff-add-from {
+    width: 400px;
+    margin: 0 auto;
+    font-size: 16px;
+
+    input[type="file"] {
+      display: inline-block;
+    }
+
+    .file-tips {
+      position: absolute;
+      font-size: 12px;
+      color: #cecece;
+    }
+
+    button {
+      display: block;
+      padding: 5px 30px;
+      margin: 20px auto;
     }
   }
 }
@@ -338,6 +391,44 @@ $header-bg-color: #f5f5f5;
   text-align: center;
 }
 
+.form-group {
+  label {
+    width: 120px;
+    text-align: right;
+    color: #a4a5a2;
+  }
+
+  input {
+    width: 200px;
+  }
+}
+
+.admin-system-view {
+  .button-div {
+    button {
+      display: block;
+      width: 300px;
+      padding: 20px 0;
+      margin: 100px auto;
+      cursor: pointer;
+    }
+  }
+  .edit-view {
+    width: 400px;
+    margin: 32px auto;
+
+    .title {
+      text-align: center;
+      margin: 24px auto;
+    }
+
+    button {
+      display: block;
+      margin: 24px auto;
+      padding: 6px 30px;
+    }
+  }
+}
 
 
 

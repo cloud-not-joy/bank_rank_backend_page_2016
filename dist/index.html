@@ -1,8 +1,135 @@
-<!doctype html><html class="no-js" lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width,initial-scale=1"><title>积分兑换系统</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- Place favicon.ico in the root directory --><link rel="stylesheet" href="styles/vendor.css"><link rel="stylesheet" href="styles/main.css"></head><body><!--[if lt IE 10]>
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>积分兑换系统</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor.css">
+
+    <link rel="stylesheet" href="styles/main.css">
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
       <p class="browserupgrade">您正在使用 <strong>过时，且危险的</strong> 浏览器。为了保障您的信息安全，请下载使用最新浏览器。下载地址<a href="http://rj.baidu.com/soft/detail/14744.html" target="_blank">http://rj.baidu.com/soft/detail/14744.html</a></p>
-    <![endif]--><div id="app-start" class="container-fluid"><router-view></router-view></div><script id="admin-system-template" type="template"><div class="admin-system-view"></div></script><script id="admin-goods-template" type="template"><div class="admin-goods-view"></div></script><script id="admin-staff-template" type="template"><div class="admin-staff-view">
-        <div class="admin-stall-list">
-          <p class="add-staff-p"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加员工</span></p>
+    <![endif]-->
+    
+    <div id="app-start" class="container-fluid">
+      <router-view></router-view>
+    </div>
+
+    <script id="admin-system-template" type="template">
+      <div class="admin-system-view">
+        <div class="button-div" v-show="isShowSystem">
+          <button class="btn btn-default" v-on:click="showEditPassword()">修改密码</button>
+          <button class="btn btn-default" v-on:click="showAddAdmin()">设置管理员</button>
+        </div>
+
+        <div class="edit-view edit-password-view" v-show="isShowAddAdmin">
+          <h4 class="title">修改密码</h4>
+          <div class="form-group">
+            <label>旧密码：</label>
+            <input type="password">
+          </div>
+          <div class="form-group">
+            <label>新密码：</label>
+            <input type="password">
+          </div>
+          <button class="btn btn-success" v-on:click="showSystem()">确认修改</button>
+        </div>
+
+        <div class="edit-view add-admin-view" v-show="isShowEditPassword">
+          <h4 class="title">添加管理员</h4>
+          <div class="form-group">
+            <label>设置管理员账号：</label>
+            <input type="password">
+          </div>
+          <div class="form-group">
+            <label>设置管理员密码：</label>
+            <input type="password">
+          </div>
+          <button class="btn btn-success" v-on:click="showSystem()">确认修改</button>
+        </div>
+      </div>
+    </script>
+
+    <script id="admin-goods-template" type="template">
+      <div class="admin-goods-view">
+        <div class="admin-staff-view">
+          <div class="admin-stall-list" v-show="!isShowAddGoods">
+            <p class="add-staff-p" v-on:click="showAddGoods()"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加礼品</span></p>
+            <div class="staff-table">
+              <table class="table-bordered">
+                <thead>
+                <tr>
+                  <th>礼品名称</th>
+                  <th>礼品图片</th>
+                  <th>兑换积分</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="itemGoods of goodsArray">
+                  <td>{{ itemGoods.name }}</td>
+                  <td class="image"><img :src="itemGoods.image" /></td>
+                  <td>{{ itemGoods.rank }}</td>
+                  <td>
+                    <span class="operation-font edit">修改</span>
+                    <span class="operation-font del">删除</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="clearfix staff-pagination">
+              <nav>
+                <ul class="pagination">
+                  <li><a href="javascript:;">&laquo;</a></li>
+                  <li><a href="javascript:;">1</a></li>
+                  <li><a href="javascript:;">2</a></li>
+                  <li><a href="javascript:;">3</a></li>
+                  <li><a href="javascript:;">4</a></li>
+                  <li><a href="javascript:;">5</a></li>
+                  <li><a href="javascript:;">&raquo;</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="staff-add-view" v-show="isShowAddGoods">
+            <h4 class="title">添加礼品</h4>
+            <div class="staff-add-from">
+              <div class="form-group">
+                <label>礼品名称：</label>
+                <input type="text" v-model="newGoods.name">
+              </div>
+              <div class="form-group">
+                <label>兑换积分：</label>
+                <input type="text" v-model="newGoods.rank">
+              </div>
+              <br>
+              <div class="form-group">
+                <label>添加图片：</label>
+                <input type="file">
+                <span class="file-tips">最多限制五张</span>
+              </div>
+
+              <button class="btn btn-success" v-on:click="addGoods()">添加礼品</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script id="admin-staff-template" type="template">
+      <div class="admin-staff-view">
+        <div class="admin-stall-list" v-show="!isShowAddStaff">
+          <p class="add-staff-p" v-on:click="showAddStaff()"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加员工</span></p>
           <div class="staff-table">
             <table class="table-bordered">
               <thead>
@@ -22,8 +149,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>蜘蛛侠</td>
+                <tr v-for="itemStaff of staffs">
+                  <td>{{ itemStaff.name }}</td>
+                  <td>{{ itemStaff.id }}</td>
+                  <td>{{ itemStaff.department }}</td>
+                  <td>{{ itemStaff.role }}</td>
+                  <td>{{ itemStaff.quota }}</td>
+                  <td>{{ itemStaff.previousDeposit }}</td>
+                  <td>{{ itemStaff.currentDeposit }}</td>
+                  <td>{{ itemStaff.cumulativeRank }}</td>
+                  <td>{{ itemStaff.exchangedRank }}</td>
+                  <td>{{ itemStaff.remainRank }}</td>
+                  <td>{{ itemStaff.convertibleGoods }}</td>
+                  <td>
+                    <span class="operation-font edit">修改</span>
+                    <span class="operation-font del">删除</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -42,14 +183,70 @@
             </nav>
           </div>
         </div>
-      </div></script><script id="admin-template" type="template"><div class="admin-view staff-view">
+
+        <div class="staff-add-view" v-show="isShowAddStaff">
+          <h4 class="title">添加员工</h4>
+          <div class="staff-add-from">
+            <div class="form-group">
+              <label>员工名称：</label>
+              <input type="text" v-model="newStaff.name">
+            </div>
+            <div class="form-group">
+              <label>员工号：</label>
+              <input type="text" v-model="newStaff.id">
+            </div>
+            <div class="form-group">
+              <label>部门名称：</label>
+              <input type="text" v-model="newStaff.department">
+            </div>
+            <div class="form-group">
+              <label>角色：</label>
+              <input type="text" v-model="newStaff.role">
+            </div>
+            <div class="form-group">
+              <label>月末任务定额：</label>
+              <input type="text" v-model="newStaff.quota">
+            </div>
+            <div class="form-group">
+              <label>上期存款：</label>
+              <input type="text" v-model="newStaff.previousDeposit">
+            </div>
+            <div class="form-group">
+              <label>本期存款：</label>
+              <input type="text" v-model="newStaff.currentDeposit">
+            </div>
+            <div class="form-group">
+              <label>累计积分：</label>
+              <input type="text" v-model="newStaff.cumulativeRank">
+            </div>
+            <div class="form-group">
+              <label>已兑换积分：</label>
+              <input type="text" v-model="newStaff.exchangedRank">
+            </div>
+            <div class="form-group">
+              <label>剩余积分：</label>
+              <input type="text" v-model="newStaff.remainRank">
+            </div>
+            <div class="form-group">
+              <label>初始密码：</label>
+              <input type="text" v-model="newStaff.password">
+            </div>
+
+            <button class="btn btn-success" v-on:click="addStaff()">添加员工</button>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script id="admin-template" type="template">
+      <div class="admin-view staff-view">
         <div class="staff-header">
           <div class="header-content">
             <h3 class="title">积分兑换系统</h3>
             <div class="admin-info-div">
               <p>欢迎你管理员 <span>美国队长</span></p>
             </div>
-            <h4 class="login-off">退出登陆</h4>
+            <h4 class="login-off" v-on:click="logoff()">退出登陆</h4>
           </div>
         </div>
 
@@ -67,7 +264,11 @@
             <router-view></router-view>
           </div>
         </div>
-      </div></script><script id="staff-template" type="template"><div class="staff-view">
+      </div>
+    </script>
+
+    <script id="staff-template" type="template">
+      <div class="staff-view">
         <div class="staff-header">
           <div class="header-content">
             <h3 class="title">积分兑换系统</h3>
@@ -92,7 +293,7 @@
               </table>
             </div>
 
-            <h4 class="login-off">退出登陆</h4>
+            <h4 class="login-off" v-on:click="logoff()">退出登陆</h4>
           </div>
         </div>
 
@@ -201,7 +402,11 @@
             </div>
           </div>
         </div>
-      </div></script><script id="login-template" type="template"><div class="login-view">
+      </div>
+    </script>
+
+    <script id="login-template" type="template" >
+      <div class="login-view">
         <div class="login-form">
           <h3 class="login-title">积分兑换系统</h3>
           <div class="form-group">
@@ -213,7 +418,7 @@
           <div class="form-group">
             <label for="inputPassword3" class="label-inline control-label">密码：</label>
             <div class="input-inline">
-              <input type="password" v-model="password" class="form-control" id="inputPassword3" placeholder="密码">
+              <input type="password" @keyup.13="login()" v-model="password" class="form-control" id="inputPassword3" placeholder="密码">
             </div>
           </div>
           <div class="form-group">
@@ -223,4 +428,15 @@
           </div>
 
         </div>
-      </div></script><script src="scripts/vendor.js"></script><script src="scripts/plugins.js"></script><script src="scripts/main.js"></script></body></html>
+      </div>
+    </script>
+
+
+
+    <script src="scripts/vendor.js"></script>
+
+    <script src="scripts/plugins.js"></script>
+
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
