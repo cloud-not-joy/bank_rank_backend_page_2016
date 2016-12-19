@@ -30,7 +30,7 @@
           <button class="btn btn-default" v-on:click="showAddAdmin()">设置管理员</button>
         </div>
 
-        <div class="edit-view edit-password-view" v-show="isShowAddAdmin">
+        <div class="edit-view edit-password-view" v-show="isShowEditPassword">
           <h4 class="title">修改密码</h4>
           <div class="form-group">
             <label>旧密码：</label>
@@ -43,7 +43,7 @@
           <button class="btn btn-success" v-on:click="showSystem()">确认修改</button>
         </div>
 
-        <div class="edit-view add-admin-view" v-show="isShowEditPassword">
+        <div class="edit-view add-admin-view" v-show="isShowAddAdmin">
           <h4 class="title">添加管理员</h4>
           <div class="form-group">
             <label>设置管理员账号：</label>
