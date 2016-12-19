@@ -370,7 +370,7 @@ var app = new Vue({
 
 // TODO 这里需要判断用户是否是登陆 如果是登陆了 就不显示登陆页面
 
-if (!window.location.hash) {
+if (!window.location.hash.replace('#/', '')) {
   router.push('/login');
 }
 
