@@ -323,16 +323,16 @@
                 <tr>
                   <td>张丹</td>
                   <td>市场部员工</td>
-                  <td rowspan="2">10月末任务额定：100</td>
-                  <td class="red-font">上期存款：1000</td>
-                  <td class="red-font" rowspan="2">累计积分：122</td>
-                  <td class="red-font" rowspan="2">已兑换积分：2000</td>
-                  <td class="red-font" rowspan="2">剩余积分：4000</td>
+                  <td rowspan="2">10月末任务额定:100</td>
+                  <td class="red-font">上期存款:1000</td>
+                  <td class="red-font" rowspan="2">累计积分:122</td>
+                  <td class="red-font" rowspan="2">已兑换积分:2000</td>
+                  <td class="red-font" rowspan="2">剩余积分:4000</td>
                 </tr>
                 <tr>
-                  <td>ID: 1232342</td>
+                  <td>ID:1232342</td>
                   <td></td>
-                  <td class="red-font">本期存款：6000</td>
+                  <td class="red-font">本期存款:6000</td>
                 </tr>
                 <tr>
                 </tr>
@@ -352,8 +352,8 @@
             <div class="goods-list">
               <ul>
                 <li class="goods-item" v-for="itemGoods of goodsArray">
-                  <img :src="itemGoods.imgUrl" />
-                  <p class="title">{{itemGoods.title}}</p>
+                  <img :src="itemGoods.image" />
+                  <p class="title">{{itemGoods.name}}</p>
                   <p class="clearfix">
                     <button class="btn btn-success" v-on:click="exchange()">兑换</button>
                     <span class="goods-rank">兑换积分：{{itemGoods.rank}}</span>

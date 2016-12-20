@@ -71,7 +71,7 @@ a:hover, a:focus {
 
 
 .red-font {
-  color: #d0d0d0;
+  color: #f9f8f2;
 }
 
 $header-bg-color: #2b89d5;
@@ -497,6 +497,10 @@ $header-bg-color: #2b89d5;
   height: 188px;
   margin: 0 auto;
   display: block;
+}
+
+th {
+  border-bottom-width: 1px !important;
 }
 
 
