@@ -87,8 +87,8 @@
                   <td class="image"><img :src="itemGoods.image" /></td>
                   <td>{{ itemGoods.rank }}</td>
                   <td>
-                    <span class="operation-font edit">修改</span>
-                    <span class="operation-font del">删除</span>
+                    <span class="operation-font edit" v-on:click="showEditGoods(itemGoods)">修改</span>
+                    <span class="operation-font del" v-on:click="delGoods(itemGoods)">删除</span>
                   </td>
                 </tr>
                 </tbody>
@@ -110,7 +110,8 @@
           </div>
 
           <div class="staff-add-view" v-show="isShowAddGoods">
-            <h4 class="title">添加礼品</h4>
+            <h4 class="title" v-show="isAddGoods">添加礼品</h4>
+            <h4 class="title" v-show="isEditGoods">修改礼品</h4>
             <div class="staff-add-from">
               <div class="form-group">
                 <label>礼品名称：</label>
@@ -124,10 +125,13 @@
               <div class="form-group">
                 <label>添加图片：</label>
                 <input type="file">
-                <span class="file-tips">最多限制五张</span>
+              </div>
+              <div class="form-group">
+                <img class="edit-goods-img" :src="newGoods.image" />
               </div>
 
-              <button class="btn btn-success" v-on:click="addGoods()">添加礼品</button>
+              <button class="btn btn-success" v-on:click="addGoods()" v-show="isAddGoods">添加礼品</button>
+              <button class="btn btn-success" v-on:click="editGoods()" v-show="isEditGoods">提交修改</button>
             </div>
           </div>
         </div>
@@ -166,12 +170,12 @@
                   <td>{{ itemStaff.previousDeposit }}</td>
                   <td>{{ itemStaff.currentDeposit }}</td>
                   <td>{{ itemStaff.cumulativeRank }}</td>
-                  <td>{{ itemStaff.exchangedRank }}</td>
+                  <td class="exchange-rank" v-on:click="showOneStaffExchange(itemStaff)">{{ itemStaff.exchangedRank }}</td>
                   <td>{{ itemStaff.remainRank }}</td>
                   <td>{{ itemStaff.convertibleGoods }}</td>
                   <td>
-                    <span class="operation-font edit">修改</span>
-                    <span class="operation-font del">删除</span>
+                    <span class="operation-font edit" v-on:click="showEditStaff(itemStaff)">修改</span>
+                    <span class="operation-font del" v-on:click="delStaff(itemStaff)">删除</span>
                   </td>
                 </tr>
               </tbody>
@@ -193,7 +197,8 @@
         </div>
 
         <div class="staff-add-view" v-show="isShowAddStaff">
-          <h4 class="title">添加员工</h4>
+          <h4 class="title" v-show="isAddStaff">添加员工</h4>
+          <h4 class="title" v-show="isEditStaff">修改员工</h4>
           <div class="staff-add-from">
             <div class="form-group">
               <label>员工名称：</label>
@@ -240,9 +245,42 @@
               <input type="text" v-model="newStaff.password">
             </div>
 
-            <button class="btn btn-success" v-on:click="addStaff()">添加员工</button>
+            <button class="btn btn-success" v-on:click="addStaff()" v-show="isAddStaff">添加员工</button>
+            <button class="btn btn-success" v-on:click="editStaff()" v-show="isEditStaff">提交修改</button>
           </div>
         </div>
+
+        <div class="modal fade exchange-modal staff-exchange-history" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="exchang-content">
+                <p class="title">
+                  兑换记录
+                </p>
+                <div class="alert-content staff-exchange-list-div">
+                  <ul class="exchange-history-list">
+                    <li>
+                      <span class="title-name">商品名称</span>
+                      <span class="title-name">消耗积分</span>
+                    </li>
+                    <li class="history-li" v-for="item of currentStaffExchangeRecard">
+                      <span class="name">{{ item.name }}</span>
+                      <span class="name">{{ item.rank }}</span>
+                      <span class="name">
+                        <button class="btn btn-success" v-show="!item.isConfirm" v-on:click="confirmExchange(item)">确认</button>
+                        <button class="btn disabled btn-default" v-show="item.isConfirm">已兑换</button>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="confirm-button clearfix">
+                <button class="sure" v-on:click="closeConfirm()">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </script>
 
@@ -387,20 +425,10 @@
                 <div class="alert-content">
                  <ul class="exchange-history-list">
                   <li><span class="name">商品名称</span><span class="rank">消耗积分</span></li>
-                  <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                  <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
-                   <li><span class="name">洗衣机</span><span class="rank">500</span></li>
-                   <li><span class="name">手机</span><span class="rank">600</span></li>
+                  <li v-for="item of exchangeHistoryList">
+                    <span class="name">{{ item.name }}</span>
+                    <span class="rank">{{ item.rank }}</span>
+                  </li>
                  </ul>
                 </div>
               </div>
@@ -454,6 +482,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
+    <script src="scripts/store/default.js"></script>
     <script src="scripts/store/state.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/login.js"></script>

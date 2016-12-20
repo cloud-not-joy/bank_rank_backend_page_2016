@@ -1,3 +1,109 @@
+'use strict';
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var defaultDatas = _defineProperty({
+  '/login': {},
+  'goodsArray': [{
+    id: 0,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '吹风机一台',
+    rank: 400
+  }, {
+    id: 1,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '榨汁机',
+    rank: 1000
+  }, {
+    id: 2,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '电视机',
+    rank: 2000
+  }, {
+    id: 3,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '空调',
+    rank: 4000
+  }, {
+    id: 3,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '空调',
+    rank: 4000
+  }, {
+    id: 3,
+    imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+    title: '空调',
+    rank: 4000
+  }],
+  staffExchangeRecards: [{
+    name: '洗衣机',
+    id: 1234,
+    rank: 2000,
+    isConfirm: true
+  }, {
+    name: '电视机',
+    id: 1234,
+    rank: 1000,
+    isConfirm: false
+  }, {
+    name: '手机',
+    id: 1234,
+    rank: 400,
+    isConfirm: true
+  }],
+  staffs: [{
+    name: '张三',
+    id: 123,
+    department: '市场部',
+    role: '员工',
+    quota: 100,
+    previousDeposit: 200,
+    currentDeposit: 1000,
+    cumulativeRank: 230,
+    exchangedRank: 100,
+    remainRank: 130,
+    convertibleGoods: '冰箱 洗发露'
+  }, {
+    name: '美国队长',
+    id: 1234,
+    department: '市场部',
+    role: '员工',
+    quota: 100,
+    previousDeposit: 200,
+    currentDeposit: 1000,
+    cumulativeRank: 2130,
+    exchangedRank: 100,
+    remainRank: 2030,
+    convertibleGoods: '冰箱 洗发露'
+  }],
+  exchangeHistoryList: [{
+    name: '微波炉',
+    rank: 1000
+  }, {
+    name: '榨汁机',
+    rank: 2000
+  }, {
+    name: '冰箱',
+    rank: 3000
+  }]
+}, 'goodsArray', [{
+  id: 12313,
+  name: '菜籽油',
+  rank: '100',
+  image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
+}, {
+  id: 12314,
+  name: '电视机',
+  rank: '2000',
+  image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
+}, {
+  id: 12315,
+  name: '笔记本',
+  rank: '2000',
+  image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
+}]);
+//# sourceMappingURL=default.js.map
+
 "use strict";
 
 var appState = {
@@ -111,22 +217,19 @@ Vue.component('login-view', loginView);
 // })
 //# sourceMappingURL=login.js.map
 
-'use strict';
+"use strict";
 
 var staffView = Vue.extend({
   template: $("#staff-template").html(),
   data: function data() {
     return {
       currentGoods: {},
-      goodsArray: []
+      goodsArray: [],
+      exchangeHistoryList: []
     };
   },
   mounted: function mounted() {
-    this.goodsArray = [{
-      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
-      title: '吹风机一台',
-      rank: 400
-    }];
+    this.goodsArray = defaultDatas.goodsArray;
   },
   methods: {
     exchange: function exchange() {
@@ -141,6 +244,7 @@ var staffView = Vue.extend({
     },
     showExchangeHistory: function showExchangeHistory() {
       $(".exchange-history").modal('show');
+      this.exchangeHistoryList = defaultDatas.exchangeHistoryList;
     },
     logoff: function logoff() {
       appState.router.push('/login');
@@ -203,47 +307,75 @@ var adminStaffView = Vue.extend({
         remainRank: '',
         password: ''
       },
-      staffs: [{
-        name: '张三',
-        id: 123,
-        department: '市场部',
-        role: '员工',
-        quota: 100,
-        previousDeposit: 200,
-        currentDeposit: 1000,
-        cumulativeRank: 230,
-        exchangedRank: 100,
-        remainRank: 130,
-        convertibleGoods: '冰箱 洗发露'
-      }, {
-        name: '美国队长',
-        id: 1234,
-        department: '市场部',
-        role: '员工',
-        quota: 100,
-        previousDeposit: 200,
-        currentDeposit: 1000,
-        cumulativeRank: 2130,
-        exchangedRank: 100,
-        remainRank: 2030,
-        convertibleGoods: '冰箱 洗发露'
-      }],
-      isShowAddStaff: false
+      staffs: [],
+      isShowAddStaff: false,
+      isAddStaff: false,
+      isEditStaff: false,
+      currentStaffExchangeRecard: []
     };
   },
   methods: {
     showAddStaff: function showAddStaff() {
       this.isShowAddStaff = true;
+      this.isAddStaff = true;
     },
     addStaff: function addStaff() {
       var newArray = [].concat(this.staffs);
       newArray.push($.extend({}, this.newStaff));
       this.staffs = newArray;
+
       this.isShowAddStaff = false;
+      this.isAddStaff = false;
 
       for (var _key in this.newStaff) {
         this.newStaff[_key] = '';
       }
+    },
+    // 显示员工兑换记录
+    showOneStaffExchange: function showOneStaffExchange(itemStaff) {
+      $(".staff-exchange-history").modal('show');
+
+      // TODO 这里需要请求数据
+      this.currentStaffExchangeRecard = defaultDatas.staffExchangeRecards;
+    },
+    // 确认兑换
+    confirmExchange: function confirmExchange(item) {
+      item.isConfirm = true;
+    },
+    closeConfirm: function closeConfirm() {
+      $(".staff-exchange-history").modal('hide');
+    },
+    showEditStaff: function showEditStaff(staff) {
+      this.isShowAddStaff = true;
+      this.isEditStaff = true;
+      this.newStaff = staff;
+    },
+    editStaff: function editStaff() {
+      this.newStaff = {
+        name: '',
+        id: '',
+        department: '',
+        role: '',
+        quota: '',
+        previousDeposit: '',
+        currentDeposit: '',
+        cumulativeRank: '',
+        exchangedRank: '',
+        remainRank: '',
+        password: ''
+      };
+      // TODO 发送请求到服务器 才保存成功
+      this.isShowAddStaff = false;
+      this.isEditStaff = false;
+    },
+    delStaff: function delStaff(staff) {
+      var _array = [].concat(this.staffs);
+      _array.forEach(function (item, index) {
+        if (item.id === staff.id) {
+          _array.splice(index, 1);
+        }
+      });
+      this.staffs = _array;
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
@@ -251,7 +383,7 @@ var adminStaffView = Vue.extend({
     // 不！能！获取组件实例 `this`
     // 因为当钩子执行前，组件实例还没被创建
     next(function (vm) {
-      console.log(vm.test);
+      vm.staffs = defaultDatas.staffs;
     });
   }
 });
@@ -261,36 +393,71 @@ var adminGoodsView = Vue.extend({
   data: function data() {
     return {
       newGoods: {
+        id: '',
         name: '',
         rank: '',
         image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
       },
-      goodsArray: [{
-        name: '菜籽油',
-        rank: '100',
-        image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
-      }, {
-        name: '电视机',
-        rank: '2000',
-        image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
-      }],
-      isShowAddGoods: false
+      goodsArray: [],
+      isShowAddGoods: false,
+      isAddGoods: false,
+      isEditGoods: false
     };
   },
   methods: {
     showAddGoods: function showAddGoods() {
       this.isShowAddGoods = true;
+      this.isAddGoods = true;
     },
     addGoods: function addGoods() {
       var newArray = [].concat(this.goodsArray);
-      newArray.push($.extend({}, this.newGoods));
+      newArray.push($.extend({}, this.newGoods, true));
       this.goodsArray = newArray;
       this.isShowAddGoods = false;
+      this.isAddGoods = false;
 
       for (var _key in this.newGoods) {
-        this.newStaff[_key] = '';
+        this.newGoods[_key] = '';
       }
+    },
+    showEditGoods: function showEditGoods(goodsItem) {
+      this.isShowAddGoods = true;
+      this.isEditGoods = true;
+      this.newGoods = goodsItem;
+    },
+    editGoods: function editGoods() {
+      // var newArray = [].concat(this.goodsArray);
+      // newArray.push($.extend({}, this.newGoods, true));
+      // this.goodsArray = newArray;
+      //
+      // for (var _key in this.newGoods) {
+      //   this.newGoods[_key] = '';
+      // }
+      this.newGoods = {
+        id: '',
+        name: '',
+        rank: '',
+        image: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/90nkdAyVBSoD9qRxzsvBrg==/6631984758396348885.jpg_188x188x1.jpg'
+      }, this.isShowAddGoods = false;
+      this.isEditGoods = false;
+    },
+    delGoods: function delGoods(goodsItem) {
+      var newArray = [].concat(this.goodsArray);
+      newArray.forEach(function (item, index) {
+        if (item.id == goodsItem.id) {
+          newArray.splice(index, 1);
+        }
+      });
+      this.goodsArray = newArray;
     }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当钩子执行前，组件实例还没被创建
+    next(function (vm) {
+      vm.goodsArray = defaultDatas.goodsArray;
+    });
   }
 });
 

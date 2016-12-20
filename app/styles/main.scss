@@ -82,7 +82,7 @@ $header-bg-color: #2b89d5;
     height: 60px;
 
     .header-content {
-      width: 80%;
+      width: 1028px;
       margin: 0 auto;
       white-space:nowrap;
       position: relative;
@@ -103,7 +103,8 @@ $header-bg-color: #2b89d5;
         margin: 0;
         line-height: 60px;
         color: #ffffff;
-        font-size: 18px;
+        font-size: 24px;
+        font-weight: bold;
       }
 
       .staff-info-div {
@@ -259,6 +260,57 @@ $header-bg-color: #2b89d5;
       line-height: 2;
     }
   }
+
+  .staff-exchange-history {
+    .modal-dialog {
+      width: 400px;
+    }
+
+    .confirm-button {
+      button {
+        width: 100%;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+  }
+
+  .staff-exchange-list-div {
+    .exchange-history-list {
+      width: 360px;
+      margin-left: 40px;
+
+      li {
+        padding: 0px 0px 10px 0px;
+
+        button {
+          width: 68px;
+        }
+
+        span:last-child {
+          margin-right: 0px;
+        }
+      }
+    }
+    span {
+      display: inline-block;
+    }
+    .title-name {
+      font-size: 16px;
+      font-weight: bold;
+      width: 80px;
+      margin-right: 28px;
+      text-align: center;
+    }
+    .history-li {
+      span {
+        width: 80px;
+        margin-right: 28px;
+        text-align: center;
+      }
+    }
+  }
+
   .exchange-history {
     .modal-dialog {
       width: 400px;
@@ -324,6 +376,10 @@ $header-bg-color: #2b89d5;
   .add-staff-p {
     margin: 14px;
     cursor: pointer;
+
+    .add-staff {
+      margin-left: 6px;
+    }
   }
   .add-staff-p:hover {
     color: #5e2400;
@@ -332,10 +388,15 @@ $header-bg-color: #2b89d5;
     padding: 0 14px 14px 14px;
     width: 100%;
 
+    .exchange-rank {
+      cursor: pointer;
+    }
+
     table {
       width: 100%;
 
       th {
+        line-height: 3;
         text-align: center;
       }
       td {
@@ -349,7 +410,7 @@ $header-bg-color: #2b89d5;
       cursor: pointer;
     }
     .edit {
-      color: #2d6987;
+      color: #2b89d5;
       margin-right: 20px;
     }
     .del {
@@ -431,6 +492,12 @@ $header-bg-color: #2b89d5;
   }
 }
 
+.edit-goods-img {
+  width: 188px;
+  height: 188px;
+  margin: 0 auto;
+  display: block;
+}
 
 
 

@@ -5,15 +5,12 @@ var staffView = Vue.extend({
       currentGoods: {
 
       },
-      goodsArray: []
+      goodsArray: [],
+      exchangeHistoryList: []
     }
   },
   mounted: function() {
-    this.goodsArray = [{
-      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
-      title: '吹风机一台',
-      rank: 400
-    }];
+    this.goodsArray = defaultDatas.goodsArray;
   },
   methods: {
     exchange: function() {
@@ -28,6 +25,7 @@ var staffView = Vue.extend({
     },
     showExchangeHistory: function() {
       $(".exchange-history").modal('show');
+      this.exchangeHistoryList = defaultDatas.exchangeHistoryList;
     },
     logoff: function() {
       appState.router.push('/login');
