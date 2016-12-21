@@ -133,11 +133,11 @@
     <script id="admin-staff-template" type="template">
       <div class="admin-staff-view">
         <div class="admin-stall-list" v-show="!isShowAddStaff">
-          <p class="add-staff-p" v-on:click="showAddStaff()"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加员工</span></p>
+          <p class="add-staff-p btn btn-primary btn-sm" v-on:click="showAddStaff()"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加员工</span></p>
           <div class="staff-table">
             <table class="table-bordered">
               <thead>
-                <tr>
+                <tr style="background-color: #2b89d5;color: white;border: none;">
                   <th>员工名称</th>
                   <th>员工号</th>
                   <th>部门名称</th>
