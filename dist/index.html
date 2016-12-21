@@ -138,12 +138,10 @@
             <button type="button" class="btn btn-primary btn-sm">导出数据</button>
             <button type="button" class="btn btn-primary btn-sm">导入数据</button>
           </p>
-           <div class="input-group col-md-3" style="margin-top:0px positon:relative">  
-                 <input type="text" class="form-control"placeholder="请输入关键字" / >  
-                      <span class="input-group-btn">  
-                         <button class="btn btn-info btn-search">查找</button>  
-                      </span>  
-           </div> 
+          <div class="input-append">
+            <input class="span2" id="appendedInputButton" type="text">
+            <button class="btn" type="button btn-primary">search</button>
+          </div>
           <div class="staff-table">
             <table class="table-bordered">
               <thead>
@@ -230,7 +228,7 @@
               <label>本期存款：</label>
               <input type="text" v-model="newStaff.currentDeposit">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
               <label>累计积分：</label>
               <input type="text" v-model="newStaff.cumulativeRank">
             </div>
@@ -241,7 +239,7 @@
             <div class="form-group">
               <label>剩余积分：</label>
               <input type="text" v-model="newStaff.remainRank">
-            </div>
+            </div>-->
             <div class="form-group">
               <label>初始密码：</label>
               <input type="text" v-model="newStaff.password">
