@@ -4,6 +4,21 @@ if (window.location.href.indexOf("192.168") !== -1 || window.location.href.index
   domain = 'http://' + window.location.hostname + ':7999';
 }
 
+
+var isDemo = false;
+var queryArray = window.location.href.split('?');
+if (queryArray.length > 1) {
+  if (queryArray[1].indexOf('isDemo') !== -1) {
+    isDemo = true;
+  }
+}
+
+$(document).on("ajaxSend", function(){
+  $("#loading-div").show();
+}).on("ajaxComplete", function(){
+  $("#loading-div").hide();
+});
+
 function errorAlert(err) {
   alert(err);
 }
@@ -14,6 +29,9 @@ function tipsAlert(tips) {
 
 var makeGet = function(url) {
   return function(data, callback) {
+    if (isDemo) {
+      return callback(defaultDatas[url]);
+    }
     $.get(domain + url, data)
       .done(function(data) {
         paseJson(data, callback);
@@ -26,6 +44,9 @@ var makeGet = function(url) {
 
 var makePost = function(url) {
   return function(data, callback) {
+    if (isDemo) {
+      return callback(defaultDatas[url]);
+    }
     $.post(domain + url, data)
       .done(function(data) {
         paseJson(data, callback);
@@ -50,4 +71,6 @@ var paseJson = function(response, callback) {
 // API 定义
 
 var apiForLogin = makePost('/login');
+var apiUserInfo = makeGet('/user/info');
+var apiGoodsList = makeGet('/goods/list');
 var apiForMemeberIndex = makeGet('/memeber');

@@ -23,6 +23,10 @@
       <router-view></router-view>
     </div>
 
+    <div class="loading-div hide">
+      <p>加载中...</p>
+    </div>
+
     <script id="admin-system-template" type="template">
       <div class="admin-system-view">
         <div class="button-div" v-show="isShowSystem">
@@ -65,7 +69,7 @@
             <p class="add-staff-p btn btn-primary btn-sm" v-on:click="showAddGoods()"><span class="glyphicon glyphicon-plus"></span><span class="add-staff">添加礼品</span></p>
             <div class="staff-table">
               <table class="table-bordered">
-                <thead style="background-color: #2b89d5;color: white;border: none;">
+                <thead>
                 <tr>
                   <th>礼品名称</th>
                   <th>礼品图片</th>
@@ -87,17 +91,7 @@
               </table>
             </div>
             <div class="clearfix staff-pagination">
-              <nav>
-                <ul class="pagination">
-                  <li><a href="javascript:;">&laquo;</a></li>
-                  <li><a href="javascript:;">1</a></li>
-                  <li><a href="javascript:;">2</a></li>
-                  <li><a href="javascript:;">3</a></li>
-                  <li><a href="javascript:;">4</a></li>
-                  <li><a href="javascript:;">5</a></li>
-                  <li><a href="javascript:;">&raquo;</a></li>
-                </ul>
-              </nav>
+              <!--<vue-nav :cur.sync="pageDatas.cur" :all.sync="pageDatas.all" v-on:btn-click="listenPage"></vue-nav>-->
             </div>
           </div>
 
@@ -145,7 +139,7 @@
           <div class="staff-table">
             <table class="table-bordered">
               <thead>
-                <tr style="background-color: #2b89d5;color: white;border: none;">
+                <tr>
                   <th>员工名称</th>
                   <th>员工号</th>
                   <th>部门名称</th>
@@ -182,17 +176,7 @@
             </table>
           </div>
           <div class="clearfix staff-pagination">
-            <nav>
-              <ul class="pagination">
-                <li><a href="javascript:;">&laquo;</a></li>
-                <li><a href="javascript:;">1</a></li>
-                <li><a href="javascript:;">2</a></li>
-                <li><a href="javascript:;">3</a></li>
-                <li><a href="javascript:;">4</a></li>
-                <li><a href="javascript:;">5</a></li>
-                <li><a href="javascript:;">&raquo;</a></li>
-              </ul>
-            </nav>
+            <vue-nav :cur.sync="pageData.cur" :all.sync="pageData.all" v-on:btn-click="listenPage"></vue-nav>
           </div>
         </div>
 
@@ -228,18 +212,18 @@
               <label>本期存款：</label>
               <input type="text" v-model="newStaff.currentDeposit">
             </div>
-            <!--<div class="form-group">
-              <label>累计积分：</label>
-              <input type="text" v-model="newStaff.cumulativeRank">
-            </div>
-            <div class="form-group">
-              <label>已兑换积分：</label>
-              <input type="text" v-model="newStaff.exchangedRank">
-            </div>
-            <div class="form-group">
-              <label>剩余积分：</label>
-              <input type="text" v-model="newStaff.remainRank">
-            </div>-->
+            <!--<div class="form-group">-->
+              <!--<label>累计积分：</label>-->
+              <!--<input type="text" v-model="newStaff.cumulativeRank">-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+              <!--<label>已兑换积分：</label>-->
+              <!--<input type="text" v-model="newStaff.exchangedRank">-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+              <!--<label>剩余积分：</label>-->
+              <!--<input type="text" v-model="newStaff.remainRank">-->
+            <!--</div>-->
             <div class="form-group">
               <label>初始密码：</label>
               <input type="text" v-model="newStaff.password">
@@ -321,18 +305,18 @@
             <div class="staff-info-div">
               <table>
                 <tr>
-                  <td>张丹</td>
-                  <td>市场部员工</td>
-                  <td rowspan="2">10月末任务额定:100</td>
-                  <td class="red-font">上期存款:1000</td>
-                  <td class="red-font" rowspan="2">累计积分:122</td>
-                  <td class="red-font" rowspan="2">已兑换积分:2000</td>
-                  <td class="red-font" rowspan="2">剩余积分:4000</td>
+                  <td>{{ staffInfo.name }}</td>
+                  <td>{{ staffInfo.department }}</td>
+                  <td rowspan="2">{{ currentMonth }}月末任务额定:{{ staffInfo.quota }}</td>
+                  <td class="red-font">上期存款:{{ staffInfo.previousDeposit }}</td>
+                  <td class="red-font" rowspan="2">累计积分:{{ staffInfo.cumulativeRank }}</td>
+                  <td class="red-font" rowspan="2">已兑换积分:{{ staffInfo.exchangedRank }}</td>
+                  <td class="red-font" rowspan="2">剩余积分:{{ staffInfo.remainRank }}</td>
                 </tr>
                 <tr>
-                  <td>ID:1232342</td>
+                  <td>ID:{{ staffInfo.id }}</td>
                   <td></td>
-                  <td class="red-font">本期存款:6000</td>
+                  <td class="red-font">本期存款:{{ staffInfo.currentDeposit }}</td>
                 </tr>
                 <tr>
                 </tr>
@@ -352,7 +336,7 @@
             <div class="goods-list">
               <ul>
                 <li class="goods-item" v-for="itemGoods of goodsArray">
-                  <img :src="itemGoods.image" />
+                  <img :src="itemGoods.imgUrl" />
                   <p class="title">{{itemGoods.name}}</p>
                   <p class="clearfix">
                     <button class="btn btn-success" v-on:click="exchange()">兑换</button>
@@ -364,17 +348,7 @@
               </ul>
             </div>
             <div class="clearfix goods-pagination">
-              <nav>
-                <ul class="pagination">
-                  <li><a href="javascript:;">&laquo;</a></li>
-                  <li><a href="javascript:;">1</a></li>
-                  <li><a href="javascript:;">2</a></li>
-                  <li><a href="javascript:;">3</a></li>
-                  <li><a href="javascript:;">4</a></li>
-                  <li><a href="javascript:;">5</a></li>
-                  <li><a href="javascript:;">&raquo;</a></li>
-                </ul>
-              </nav>
+              <vue-nav :cur.sync="pageData.cur" :all.sync="pageData.all" v-on:btn-click="listenStaffPage"></vue-nav>
             </div>
           </div>
         </div>

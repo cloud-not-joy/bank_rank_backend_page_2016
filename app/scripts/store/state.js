@@ -1,4 +1,5 @@
 var appState = {
   router: null,
-  isLogin: true
+  isLogin: true,
+  role: ''
 }

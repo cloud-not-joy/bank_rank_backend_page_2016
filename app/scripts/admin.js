@@ -38,19 +38,29 @@ var adminStaffView = Vue.extend({
         quota: '',
         previousDeposit: '',
         currentDeposit: '',
-        cumulativeRank: '',
-        exchangedRank: '',
-        remainRank: '',
+        // cumulativeRank: '',
+        // exchangedRank: '',
+        // remainRank: '',
         password: ''
       },
       staffs: [],
       isShowAddStaff: false,
       isAddStaff: false,
       isEditStaff: false,
-      currentStaffExchangeRecard: []
+      currentStaffExchangeRecard: [],
+      pageData: {
+        cur: 1,
+        all: 8
+      }
     }
   },
+  components:{
+    'vue-nav': Vnav
+  },
   methods: {
+    listenPage:function(page){
+      console.log('你点击了' + page + '页');
+    },
     showAddStaff: function() {
       this.isShowAddStaff = true;
       this.isAddStaff = true;
@@ -95,9 +105,9 @@ var adminStaffView = Vue.extend({
           quota: '',
           previousDeposit: '',
           currentDeposit: '',
-          cumulativeRank: '',
-          exchangedRank: '',
-          remainRank: '',
+          // cumulativeRank: '',
+          // exchangedRank: '',
+          // remainRank: '',
           password: ''
       };
       // TODO 发送请求到服务器 才保存成功
@@ -137,7 +147,11 @@ var adminGoodsView = Vue.extend({
       goodsArray: [],
       isShowAddGoods: false,
       isAddGoods: false,
-      isEditGoods: false
+      isEditGoods: false,
+      pageData: {
+        cur: 1,
+        all: 8
+      }
     }
   },
   methods: {
@@ -162,13 +176,6 @@ var adminGoodsView = Vue.extend({
       this.newGoods = goodsItem;
     },
     editGoods: function() {
-      // var newArray = [].concat(this.goodsArray);
-      // newArray.push($.extend({}, this.newGoods, true));
-      // this.goodsArray = newArray;
-      //
-      // for (var _key in this.newGoods) {
-      //   this.newGoods[_key] = '';
-      // }
       this.newGoods = {
           id: '',
           name: '',
@@ -205,7 +212,7 @@ var adminSystemView = Vue.extend({
     return {
       isShowSystem: true,
       isShowAddAdmin: false,
-      isShowEditPassword: false
+      isShowEditPassword: false,
     }
   },
   methods: {

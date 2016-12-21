@@ -1,9 +1,84 @@
-'use strict';
+"use strict";
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultDatas = _defineProperty({
-  '/login': {},
+  '/login': {
+    "user_id": 3,
+    "username": "admin",
+    "role": "员工",
+    "accumulate": null,
+    "consume": null
+  },
+  '/user/info': {
+    currentMonth: '十月',
+    userInfo: {
+      name: '张三',
+      id: 123,
+      department: '市场部',
+      role: '员工',
+      quota: 100,
+      previousDeposit: 200,
+      currentDeposit: 1000,
+      cumulativeRank: 230,
+      exchangedRank: 100,
+      remainRank: 130
+    }
+  },
+  '/goods/list': {
+    totalPages: 6,
+    lists: [{
+      id: 0,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '吹风机一台',
+      rank: 400
+    }, {
+      id: 1,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '榨汁机',
+      rank: 1000
+    }, {
+      id: 2,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '电视机',
+      rank: 2000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/H-G1WkheNeZAPgQtCW9EVw==/6631783547771508070.jpg_188x188x1.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/YO-FLITAd7LOJ9xc561hUA==/6631867110652867849.jpg_230x230x1x95.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/ANBTGBiBCvJrZBuBdI9WVg==/6631902295024986172.jpg_230x230x1x95.jpg',
+      name: '空调',
+      rank: 4000
+    }, {
+      id: 3,
+      imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img0.ph.126.net/QilZpaHhnNhRo_yIy8OsSQ==/6631820931167577129.jpg_230x230x1x95.jpg',
+      name: '空调',
+      rank: 4000
+    }]
+  },
   'goodsArray': [{
     id: 0,
     imgUrl: 'http://imgsize.ph.126.net/?imgurl=http://img1.ph.126.net/pKa8Kttj0AsOd7TijP9CRA==/6632036435442880504.jpg_188x188x1.jpg',
@@ -86,7 +161,7 @@ var defaultDatas = _defineProperty({
     name: '冰箱',
     rank: 3000
   }]
-}, 'goodsArray', [{
+}, "goodsArray", [{
   id: 12313,
   name: '菜籽油',
   rank: '100',
@@ -104,11 +179,12 @@ var defaultDatas = _defineProperty({
 }]);
 //# sourceMappingURL=default.js.map
 
-"use strict";
+'use strict';
 
 var appState = {
   router: null,
-  isLogin: true
+  isLogin: true,
+  role: ''
 };
 //# sourceMappingURL=state.js.map
 
@@ -120,6 +196,20 @@ if (window.location.href.indexOf("192.168") !== -1 || window.location.href.index
   domain = 'http://' + window.location.hostname + ':7999';
 }
 
+var isDemo = false;
+var queryArray = window.location.href.split('?');
+if (queryArray.length > 1) {
+  if (queryArray[1].indexOf('isDemo') !== -1) {
+    isDemo = true;
+  }
+}
+
+$(document).on("ajaxSend", function () {
+  $("#loading-div").show();
+}).on("ajaxComplete", function () {
+  $("#loading-div").hide();
+});
+
 function errorAlert(err) {
   alert(err);
 }
@@ -130,6 +220,9 @@ function tipsAlert(tips) {
 
 var makeGet = function makeGet(url) {
   return function (data, callback) {
+    if (isDemo) {
+      return callback(defaultDatas[url]);
+    }
     $.get(domain + url, data).done(function (data) {
       paseJson(data, callback);
     }).fail(function (err) {
@@ -140,6 +233,9 @@ var makeGet = function makeGet(url) {
 
 var makePost = function makePost(url) {
   return function (data, callback) {
+    if (isDemo) {
+      return callback(defaultDatas[url]);
+    }
     $.post(domain + url, data).done(function (data) {
       paseJson(data, callback);
     }).fail(function (err) {
@@ -161,6 +257,8 @@ var paseJson = function paseJson(response, callback) {
 // API 定义
 
 var apiForLogin = makePost('/login');
+var apiUserInfo = makeGet('/user/info');
+var apiGoodsList = makeGet('/goods/list');
 var apiForMemeberIndex = makeGet('/memeber');
 //# sourceMappingURL=data.js.map
 
@@ -191,17 +289,20 @@ var loginView = Vue.extend({
       if (this.username === 'admin') {
         return appState.router.push('/admin/staff');
       }
-      appState.router.push('/staff');
-      // apiForLogin({
-      //   username: this.username,
-      //   password: this.password
-      // }, function(data) {
-      //   // TODO 这里登陆角色跳转到不同到view
-      //   appState.isLogin = true;
-      //   // if (data.role === 1) {
-      //     appState.router.push('/staff');
-      //   // }
-      // });
+      // appState.router.push('/staff');
+      apiForLogin({
+        username: this.username,
+        password: this.password
+      }, function (data) {
+        // TODO 这里登陆角色跳转到不同到view
+        appState.isLogin = true;
+        appState.role = data.role;
+        if (data.role === '员工') {
+          appState.router.push('/staff');
+        } else {
+          appState.router.push('/admin/staff');
+        }
+      });
     }
   }
 });
@@ -217,21 +318,59 @@ Vue.component('login-view', loginView);
 // })
 //# sourceMappingURL=login.js.map
 
-"use strict";
+'use strict';
 
 var staffView = Vue.extend({
   template: $("#staff-template").html(),
   data: function data() {
     return {
+      currentMonth: '',
+      staffInfo: {
+        name: '',
+        id: '',
+        department: '',
+        role: '',
+        quota: '',
+        previousDeposit: '',
+        currentDeposit: '',
+        cumulativeRank: '',
+        exchangedRank: '',
+        remainRank: ''
+      },
       currentGoods: {},
       goodsArray: [],
-      exchangeHistoryList: []
+      exchangeHistoryList: [],
+      pageData: {
+        cur: 1,
+        all: 1
+      },
+      currentPage: 1
     };
   },
   mounted: function mounted() {
-    this.goodsArray = defaultDatas.goodsArray;
+    var vm = this;
+    this.getGoodsLists();
+    apiUserInfo({}, function (response) {
+      vm.currentMonth = response.currentMonth;
+      vm.staffInfo = response.userInfo;
+    });
+    // this.goodsArray = defaultDatas.goodsArray;
+  },
+  components: {
+    'vue-nav': Vnav
   },
   methods: {
+    getGoodsLists: function getGoodsLists() {
+      var vm = this;
+      apiGoodsList({ page: vm.currentPage }, function (response) {
+        vm.pageData.all = response.totalPages;
+        vm.goodsArray = response.lists;
+      });
+    },
+    listenStaffPage: function listenStaffPage(page) {
+      this.currentPage = page;
+      this.getGoodsLists();
+    },
     exchange: function exchange() {
       // TODO 获取当前选中的商品信息
       $(".exchange-confirm").modal('show');
@@ -302,19 +441,29 @@ var adminStaffView = Vue.extend({
         quota: '',
         previousDeposit: '',
         currentDeposit: '',
-        cumulativeRank: '',
-        exchangedRank: '',
-        remainRank: '',
+        // cumulativeRank: '',
+        // exchangedRank: '',
+        // remainRank: '',
         password: ''
       },
       staffs: [],
       isShowAddStaff: false,
       isAddStaff: false,
       isEditStaff: false,
-      currentStaffExchangeRecard: []
+      currentStaffExchangeRecard: [],
+      pageData: {
+        cur: 1,
+        all: 8
+      }
     };
   },
+  components: {
+    'vue-nav': Vnav
+  },
   methods: {
+    listenPage: function listenPage(page) {
+      console.log('你点击了' + page + '页');
+    },
     showAddStaff: function showAddStaff() {
       this.isShowAddStaff = true;
       this.isAddStaff = true;
@@ -359,9 +508,9 @@ var adminStaffView = Vue.extend({
         quota: '',
         previousDeposit: '',
         currentDeposit: '',
-        cumulativeRank: '',
-        exchangedRank: '',
-        remainRank: '',
+        // cumulativeRank: '',
+        // exchangedRank: '',
+        // remainRank: '',
         password: ''
       };
       // TODO 发送请求到服务器 才保存成功
@@ -401,7 +550,11 @@ var adminGoodsView = Vue.extend({
       goodsArray: [],
       isShowAddGoods: false,
       isAddGoods: false,
-      isEditGoods: false
+      isEditGoods: false,
+      pageData: {
+        cur: 1,
+        all: 8
+      }
     };
   },
   methods: {
@@ -426,13 +579,6 @@ var adminGoodsView = Vue.extend({
       this.newGoods = goodsItem;
     },
     editGoods: function editGoods() {
-      // var newArray = [].concat(this.goodsArray);
-      // newArray.push($.extend({}, this.newGoods, true));
-      // this.goodsArray = newArray;
-      //
-      // for (var _key in this.newGoods) {
-      //   this.newGoods[_key] = '';
-      // }
       this.newGoods = {
         id: '',
         name: '',

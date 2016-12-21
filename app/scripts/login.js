@@ -23,17 +23,20 @@ var loginView = Vue.extend({
       if (this.username === 'admin') {
         return appState.router.push('/admin/staff');
       }
-      appState.router.push('/staff');
-      // apiForLogin({
-      //   username: this.username,
-      //   password: this.password
-      // }, function(data) {
-      //   // TODO 这里登陆角色跳转到不同到view
-      //   appState.isLogin = true;
-      //   // if (data.role === 1) {
-      //     appState.router.push('/staff');
-      //   // }
-      // });
+      // appState.router.push('/staff');
+      apiForLogin({
+        username: this.username,
+        password: this.password
+      }, function(data) {
+        // TODO 这里登陆角色跳转到不同到view
+        appState.isLogin = true;
+        appState.role = data.role;
+        if (data.role === '员工') {
+          appState.router.push('/staff');
+        } else {
+          appState.router.push('/admin/staff');
+        }
+      });
     }
   }
 })
