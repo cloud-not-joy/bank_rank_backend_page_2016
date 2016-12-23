@@ -73,4 +73,8 @@ var paseJson = function(response, callback) {
 var apiForLogin = makePost('/login');
 var apiUserInfo = makeGet('/user/info');
 var apiGoodsList = makeGet('/goods/list');
+var apiStaffExchangeHistory = makeGet('/exchange/history');
+var apiStaffExchange = makePost('/exchange/do');
+
+
 var apiForMemeberIndex = makeGet('/memeber');
